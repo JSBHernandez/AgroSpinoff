@@ -500,25 +500,6 @@ router.get('/nuevo-endpoint', authenticateToken, async (req, res) => {
 
 ---
 
-## 🤝 Contribuir
-
-### **Proceso de Contribución**
-
-1. Fork del repositorio
-2. Crear rama feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit cambios (`git commit -am 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Crear Pull Request
-
-### **Estándares de Código**
-
-- Seguir las convenciones establecidas
-- Comentar código complejo
-- Agregar tests para nuevas funcionalidades
-- Actualizar documentación
-
----
-
 ## 🔒 Seguridad
 
 - **Autenticación:** JWT con expiración
@@ -530,24 +511,11 @@ router.get('/nuevo-endpoint', authenticateToken, async (req, res) => {
 
 ---
 
-## 📞 Soporte
-
-### **Contacto del Proyecto**
-- **Institución:** Universidad Pontificia Bolivariana
-- **Facultad:** Ingeniería de Sistemas
-- **Proyecto:** Centro de Agroindustria Inteligente
-
 ### **Problemas Conocidos**
 
 1. **Triggers MySQL:** Algunos triggers requieren configuración manual
 2. **Variables .env:** Verificar que se carguen correctamente
 3. **CORS:** Configurar dominio en producción
-
----
-
-## 📄 Licencia
-
-Este proyecto está desarrollado para la **Universidad Pontificia Bolivariana** como parte del **Parque Tecnológico Universitario**. Todos los derechos reservados.
 
 ---
 
@@ -565,4 +533,3 @@ Este proyecto está desarrollado para la **Universidad Pontificia Bolivariana** 
 
 **Para el sector agroindustrial**
 
-*AgroTechNova - "Innovación que cuida, bienestar que produce"*
