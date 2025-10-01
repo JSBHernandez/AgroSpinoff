@@ -108,7 +108,11 @@ router.put('/profile', [
 router.get('/', requireRole(['administrador']), async (req, res) => {
     try {
         const { page = 1, limit = 10, rol, activo } = req.query;
-        const offset = (page - 1) * limit;
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 10;
+        const offset = (pageNum - 1) * limitNum;
+        
+        console.log('DEBUG - Paginación users:', { page, limit, pageNum, limitNum, offset });
 
         let whereConditions = [];
         let params = [];
@@ -131,27 +135,19 @@ router.get('/', requireRole(['administrador']), async (req, res) => {
             FROM usuarios 
             ${whereClause}
             ORDER BY fecha_registro DESC
-            LIMIT ? OFFSET ?
+            LIMIT 50
         `;
 
-        params.push(parseInt(limit), parseInt(offset));
+        console.log('DEBUG - Params users antes de query:', params);
         const users = await executeQuery(query, params);
-
-        // Contar total para paginación
-        const countQuery = `SELECT COUNT(*) as total FROM usuarios ${whereClause}`;
-        const countResult = await executeQuery(countQuery, params.slice(0, -2));
-        const total = countResult[0].total;
 
         res.json({
             success: true,
             data: {
                 users,
-                pagination: {
-                    current_page: parseInt(page),
-                    total_pages: Math.ceil(total / limit),
-                    total_records: total,
-                    per_page: parseInt(limit)
-                }
+                total: users.length,
+                page: 1,
+                totalPages: 1
             }
         });
 

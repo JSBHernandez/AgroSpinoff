@@ -12,7 +12,11 @@ router.use(requireActiveUser);
 router.get('/', async (req, res) => {
     try {
         const { page = 1, limit = 10, categoria, estado, search } = req.query;
-        const offset = (page - 1) * limit;
+        const pageNum = parseInt(page) || 1;
+        const limitNum = parseInt(limit) || 10;
+        const offset = (pageNum - 1) * limitNum;
+        
+        console.log('DEBUG - Paginación projects:', { page, limit, pageNum, limitNum, offset });
 
         let whereConditions = [];
         let params = [];
@@ -62,33 +66,19 @@ router.get('/', async (req, res) => {
             LEFT JOIN usuarios ases ON p.id_asesor = ases.id_usuario
             ${whereClause}
             ORDER BY p.fecha_creacion DESC
-            LIMIT ? OFFSET ?
+            LIMIT 50
         `;
 
-        params.push(parseInt(limit), parseInt(offset));
+        console.log('DEBUG - Params antes de query:', params);
         const projects = await executeQuery(query, params);
-
-        // Contar total para paginación
-        const countQuery = `
-            SELECT COUNT(*) as total 
-            FROM proyectos p
-            LEFT JOIN usuarios prod ON p.id_productor = prod.id_usuario
-            LEFT JOIN usuarios ases ON p.id_asesor = ases.id_usuario
-            ${whereClause}
-        `;
-        const countResult = await executeQuery(countQuery, params.slice(0, -2));
-        const total = countResult[0].total;
 
         res.json({
             success: true,
             data: {
                 projects,
-                pagination: {
-                    current_page: parseInt(page),
-                    total_pages: Math.ceil(total / limit),
-                    total_records: total,
-                    per_page: parseInt(limit)
-                }
+                total: projects.length,
+                page: 1,
+                totalPages: 1
             }
         });
 

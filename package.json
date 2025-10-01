@@ -20,20 +20,21 @@
   "author": "AgroTechNova Team",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.6.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "multer": "^1.4.4",
-    "nodemailer": "^6.9.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express-validator": "^7.0.1",
-    "express-rate-limit": "^6.10.0",
-    "helmet": "^7.1.0",
-    "pdfkit": "^0.13.0",
     "exceljs": "^4.4.0",
-    "moment": "^2.29.4"
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.29.4",
+    "multer": "^1.4.4",
+    "mysql2": "^3.6.0",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.9.7",
+    "pdfkit": "^0.13.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
