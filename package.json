@@ -1,0 +1,44 @@
+{
+  "name": "agrotech-nova",
+  "version": "1.0.0",
+  "description": "Sistema Integrado de Gestión para el Centro de Agroindustria - Parque Tecnológico Universitario",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-db": "mysql -u root -p < database/schema.sql",
+    "seed-db": "mysql -u root -p < database/seeds.sql"
+  },
+  "keywords": [
+    "agroindustria",
+    "gestion-proyectos",
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "AgroTechNova Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express-validator": "^7.0.1",
+    "express-rate-limit": "^6.10.0",
+    "helmet": "^7.1.0",
+    "pdfkit": "^0.13.0",
+    "exceljs": "^4.4.0",
+    "moment": "^2.29.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
