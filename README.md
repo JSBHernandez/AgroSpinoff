@@ -553,7 +553,7 @@ Este proyecto está desarrollado para la **Universidad Pontificia Bolivariana** 
 
 ## 🎉 Changelog
 
-### **v1.0.0** (Octubre 2025)
+### **v1**
 - ✅ Sistema completo de autenticación
 - ✅ Gestión de proyectos agroindustriales
 - ✅ Base de datos con 27 tablas
@@ -561,15 +561,8 @@ Este proyecto está desarrollado para la **Universidad Pontificia Bolivariana** 
 - ✅ Sistema de reportes
 - ✅ Interfaz web básica
 
-### **Próximas Versiones**
-- 📱 Aplicación móvil
-- 📊 Dashboard con gráficos
-- 🤖 Inteligencia artificial para recomendaciones
-- 🌐 Integración con APIs externas
-- 📧 Sistema de notificaciones avanzado
-
 ---
 
-**Desarrollado con 💚 para el sector agroindustrial**
+**Para el sector agroindustrial**
 
 *AgroTechNova - "Innovación que cuida, bienestar que produce"*
