@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - AgroTechNova</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="assets/img/logo.png" alt="AgroTechNova" class="logo-img">
+                    <h1>AgroTechNova</h1>
+                </div>
+                <nav class="nav">
+                    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+                    <a href="projects.html"><i class="fas fa-project-diagram"></i> Proyectos</a>
+                    <a href="reports.html"><i class="fas fa-chart-bar"></i> Reportes</a>
+                    <a href="products.html" class="active"><i class="fas fa-box"></i> Productos</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Salir</a>
+                </nav>
+                <div class="user-info">
+                    <span id="userRole"></span>
+                    <span id="userName"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2><i class="fas fa-box"></i> Catálogo de Productos</h2>
+                <p class="page-description">RF06 - Gestión de productos con precios diferenciados por rol</p>
+            </div>
+
+            <!-- Controles y Filtros -->
+            <div class="controls-section">
+                <div class="search-filters">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar productos...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="categoryFilter">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                        
+                        <select id="sortOrder">
+                            <option value="">Ordenar por...</option>
+                            <option value="precio_asc">Precio (menor a mayor)</option>
+                            <option value="precio_desc">Precio (mayor a menor)</option>
+                            <option value="fecha_desc">Más recientes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-buttons" id="adminActions" style="display: none;">
+                    <button type="button" class="btn btn-primary" id="newProductBtn">
+                        <i class="fas fa-plus"></i> Nuevo Producto
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="manageCategoriesBtn">
+                        <i class="fas fa-tags"></i> Gestionar Categorías
+                    </button>
+                </div>
+            </div>
+
+            <!-- Vista de Usuario -->
+            <div class="user-view">
+                <div class="view-info">
+                    <div class="role-badge" id="roleBadge"></div>
+                    <p class="pricing-note" id="pricingNote"></p>
+                </div>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargarán dinámicamente -->
+            </div>
+
+            <!-- Paginación -->
+            <div class="pagination" id="pagination">
+                <!-- La paginación se generará dinámicamente -->
+            </div>
+
+            <!-- Loading -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Cargando productos...</p>
+            </div>
+
+            <!-- No hay productos -->
+            <div class="no-products" id="noProducts" style="display: none;">
+                <i class="fas fa-box-open"></i>
+                <h3>No se encontraron productos</h3>
+                <p>No hay productos que coincidan con los criterios de búsqueda.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Detalles del Producto -->
+    <div id="productModal" class="modal" style="display: none;">
+        <div class="modal-content product-modal">
+            <div class="modal-header">
+                <h3 id="modalProductName">Nombre del Producto</h3>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="product-detail-grid">
+                    <!-- Imágenes -->
+                    <div class="product-images">
+                        <div class="main-image">
+                            <img id="mainProductImage" src="" alt="Producto">
+                        </div>
+                        <div class="thumbnail-images" id="thumbnailImages">
+                            <!-- Miniaturas se cargarán aquí -->
+                        </div>
+                    </div>
+                    
+                    <!-- Información del Producto -->
+                    <div class="product-info">
+                        <div class="product-code">
+                            <span class="label">Código:</span>
+                            <span id="productCode"></span>
+                        </div>
+                        
+                        <div class="product-price">
+                            <span class="price" id="productPrice"></span>
+                            <span class="price-type" id="priceType"></span>
+                        </div>
+                        
+                        <div class="product-description">
+                            <h4>Descripción</h4>
+                            <p id="productDescription"></p>
+                        </div>
+                        
+                        <div class="product-details">
+                            <div class="detail-item">
+                                <span class="label">Categoría:</span>
+                                <span id="productCategory"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Unidad:</span>
+                                <span id="productUnit"></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Stock:</span>
+                                <span id="productStock"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Especificaciones -->
+                        <div class="specifications" id="productSpecifications">
+                            <h4>Especificaciones Técnicas</h4>
+                            <div class="specs-list" id="specsList">
+                                <!-- Las especificaciones se cargarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Productos Relacionados -->
+                <div class="related-products" id="relatedProducts" style="display: none;">
+                    <h4>Productos Relacionados</h4>
+                    <div class="related-grid" id="relatedGrid">
+                        <!-- Productos relacionados se cargarán aquí -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Nuevo/Editar Producto (Solo Administradores) -->
+    <div id="productFormModal" class="modal" style="display: none;">
+        <div class="modal-content product-form-modal">
+            <div class="modal-header">
+                <h3 id="formModalTitle">Nuevo Producto</h3>
+                <span class="close" id="closeFormModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="productForm" enctype="multipart/form-data">
+                    <input type="hidden" id="productId" name="productId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="codigo">Código del Producto *</label>
+                            <input type="text" id="codigo" name="codigo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre del Producto *</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="categoria_id">Categoría *</label>
+                            <select id="categoria_id" name="categoria_id" required>
+                                <option value="">Seleccionar categoría</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="unidad_medida">Unidad de Medida</label>
+                            <select id="unidad_medida" name="unidad_medida">
+                                <option value="unidad">Unidad</option>
+                                <option value="kg">Kilogramo</option>
+                                <option value="litro">Litro</option>
+                                <option value="metro">Metro</option>
+                                <option value="m2">Metro cuadrado</option>
+                                <option value="caja">Caja</option>
+                                <option value="saco">Saco</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="stock_actual">Stock Actual</label>
+                            <input type="number" id="stock_actual" name="stock_actual" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="stock_minimo">Stock Mínimo</label>
+                            <input type="number" id="stock_minimo" name="stock_minimo" min="0" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="precio_cliente">Precio Cliente *</label>
+                            <input type="number" id="precio_cliente" name="precio_cliente" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="precio_proveedor">Precio Proveedor</label>
+                            <input type="number" id="precio_proveedor" name="precio_proveedor" step="0.01" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="imagen">Imagen del Producto</label>
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                        <small class="form-help">Formatos permitidos: JPG, PNG, GIF. Tamaño máximo: 5MB</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelForm">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submitForm">Guardar Producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/products.js"></script>
+</body>
+</html>

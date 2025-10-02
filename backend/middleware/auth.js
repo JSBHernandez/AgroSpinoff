@@ -59,6 +59,7 @@ const requireActiveUser = (req, res, next) => {
 };
 
 module.exports = {
+    verifyToken: authenticateToken,
     authenticateToken,
     requireRole,
     requireActiveUser

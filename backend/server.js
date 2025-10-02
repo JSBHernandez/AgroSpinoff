@@ -30,12 +30,16 @@ app.use(express.urlencoded({ extended: true }));
 // Servir archivos estáticos del frontend
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
+// Servir archivos de uploads (imágenes de productos)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Importar rutas
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const projectRoutes = require('./routes/projects');
 const reportRoutes = require('./routes/reports');
 const reportsRF05Routes = require('./routes/reports-rf05');
+const productsRF06Routes = require('./routes/products-rf06');
 const phaseRoutes = require('./routes/phases');
 const resourceRoutes = require('./routes/resources');
 const budgetRoutes = require('./routes/budgets');
@@ -48,6 +52,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/reports-rf05', reportsRF05Routes);
+app.use('/api/products', productsRF06Routes);
 app.use('/api/phases', phaseRoutes);
 app.use('/api/resources', resourceRoutes);
 app.use('/api/budgets', budgetRoutes);
