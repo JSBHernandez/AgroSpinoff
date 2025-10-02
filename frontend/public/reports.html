@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes de Recursos - AgroTechNova</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        .reports-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .reports-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .reports-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+
+        .reports-header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .reports-nav {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .reports-tabs {
+            display: flex;
+            background: #f8f9fa;
+        }
+
+        .reports-tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+        }
+
+        .reports-tab.active {
+            background: white;
+            color: #2c3e50;
+            box-shadow: 0 -2px 0 #3498db;
+        }
+
+        .reports-tab:hover {
+            background: #e9ecef;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .filters-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .actions-bar {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .results-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .results-header h3 {
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .results-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+        }
+
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            border-top: 2px solid #3498db;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #e9ecef;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .summary-card .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .summary-card .label {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .reports-tabs {
+                flex-direction: column;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>AgroTechNova</h1>
+                <p>Sistema de Gestión Agroindustrial</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="monitoring.html">Monitoreo</a></li>
+                    <li><a href="reports.html" class="active">Reportes</a></li>
+                    <li><a href="#" onclick="logout()">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="reports-container">
+        <div class="reports-header">
+            <h1>📊 Reportes de Recursos</h1>
+            <p>Generación de informes detallados sobre utilización de recursos por proyecto y fase</p>
+        </div>
+
+        <div class="reports-nav">
+            <div class="reports-tabs">
+                <button class="reports-tab active" onclick="switchTab('utilizacion')">
+                    📈 Utilización de Recursos
+                </button>
+                <button class="reports-tab" onclick="switchTab('resumen')">
+                    📋 Resumen por Proyecto
+                </button>
+                <button class="reports-tab" onclick="switchTab('tendencias')">
+                    📊 Tendencias de Consumo
+                </button>
+            </div>
+
+            <!-- Tab: Utilización de Recursos -->
+            <div id="tab-utilizacion" class="tab-content active">
+                <div class="filters-section">
+                    <h3 style="margin-top: 0; color: #2c3e50;">🔍 Filtros de Búsqueda</h3>
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="proyecto-utilizacion">Proyecto:</label>
+                            <select id="proyecto-utilizacion">
+                                <option value="">Todos los proyectos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="fase-utilizacion">Fase:</label>
+                            <select id="fase-utilizacion">
+                                <option value="">Todas las fases</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="tipo-recurso-utilizacion">Tipo de Recurso:</label>
+                            <select id="tipo-recurso-utilizacion">
+                                <option value="">Todos los tipos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="categoria-utilizacion">Categoría:</label>
+                            <select id="categoria-utilizacion">
+                                <option value="">Todas las categorías</option>
+                                <option value="material">Material</option>
+                                <option value="recurso">Recurso</option>
+                                <option value="equipo">Equipo</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="fecha-inicio-utilizacion">Fecha Inicio:</label>
+                            <input type="date" id="fecha-inicio-utilizacion">
+                        </div>
+                        <div class="filter-group">
+                            <label for="fecha-fin-utilizacion">Fecha Fin:</label>
+                            <input type="date" id="fecha-fin-utilizacion">
+                        </div>
+                    </div>
+                    <div class="actions-bar">
+                        <button class="btn btn-primary" onclick="cargarReporteUtilizacion()">
+                            🔍 Generar Reporte
+                        </button>
+                        <button class="btn btn-success" onclick="exportarExcel('utilizacion')">
+                            📊 Exportar Excel
+                        </button>
+                        <button class="btn btn-warning" onclick="exportarPDF('utilizacion')">
+                            📄 Exportar PDF
+                        </button>
+                        <button class="btn btn-info" onclick="limpiarFiltros('utilizacion')">
+                            🔄 Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <div class="results-header">
+                        <h3>📈 Resultados de Utilización</h3>
+                        <div class="results-stats" id="stats-utilizacion"></div>
+                    </div>
+                    <div id="content-utilizacion">
+                        <div class="no-data">
+                            Selecciona los filtros y genera el reporte para ver los resultados
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Resumen por Proyecto -->
+            <div id="tab-resumen" class="tab-content">
+                <div class="filters-section">
+                    <h3 style="margin-top: 0; color: #2c3e50;">🔍 Filtros de Búsqueda</h3>
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="proyecto-resumen">Proyecto:</label>
+                            <select id="proyecto-resumen">
+                                <option value="">Todos los proyectos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="estado-proyecto-resumen">Estado del Proyecto:</label>
+                            <select id="estado-proyecto-resumen">
+                                <option value="">Todos los estados</option>
+                                <option value="planificacion">Planificación</option>
+                                <option value="ejecucion">Ejecución</option>
+                                <option value="finalizado">Finalizado</option>
+                                <option value="suspendido">Suspendido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actions-bar">
+                        <button class="btn btn-primary" onclick="cargarReporteResumen()">
+                            🔍 Generar Reporte
+                        </button>
+                        <button class="btn btn-success" onclick="exportarExcel('resumen')">
+                            📊 Exportar Excel
+                        </button>
+                        <button class="btn btn-warning" onclick="exportarPDF('resumen')">
+                            📄 Exportar PDF
+                        </button>
+                        <button class="btn btn-info" onclick="limpiarFiltros('resumen')">
+                            🔄 Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <div class="results-header">
+                        <h3>📋 Resumen por Proyecto</h3>
+                        <div class="results-stats" id="stats-resumen"></div>
+                    </div>
+                    <div id="content-resumen">
+                        <div class="no-data">
+                            Selecciona los filtros y genera el reporte para ver los resultados
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Tendencias de Consumo -->
+            <div id="tab-tendencias" class="tab-content">
+                <div class="filters-section">
+                    <h3 style="margin-top: 0; color: #2c3e50;">🔍 Filtros de Búsqueda</h3>
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="proyecto-tendencias">Proyecto:</label>
+                            <select id="proyecto-tendencias">
+                                <option value="">Todos los proyectos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="tipo-recurso-tendencias">Tipo de Recurso:</label>
+                            <select id="tipo-recurso-tendencias">
+                                <option value="">Todos los tipos</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="fecha-inicio-tendencias">Fecha Inicio:</label>
+                            <input type="date" id="fecha-inicio-tendencias">
+                        </div>
+                        <div class="filter-group">
+                            <label for="fecha-fin-tendencias">Fecha Fin:</label>
+                            <input type="date" id="fecha-fin-tendencias">
+                        </div>
+                        <div class="filter-group">
+                            <label for="agrupacion-tendencias">Agrupación:</label>
+                            <select id="agrupacion-tendencias">
+                                <option value="diario">Diario</option>
+                                <option value="semanal">Semanal</option>
+                                <option value="mensual">Mensual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actions-bar">
+                        <button class="btn btn-primary" onclick="cargarReporteTendencias()">
+                            🔍 Generar Reporte
+                        </button>
+                        <button class="btn btn-success" onclick="exportarExcel('tendencias')">
+                            📊 Exportar Excel
+                        </button>
+                        <button class="btn btn-warning" onclick="exportarPDF('tendencias')">
+                            📄 Exportar PDF
+                        </button>
+                        <button class="btn btn-info" onclick="limpiarFiltros('tendencias')">
+                            🔄 Limpiar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-section">
+                    <div class="results-header">
+                        <h3>📊 Tendencias de Consumo</h3>
+                        <div class="results-stats" id="stats-tendencias"></div>
+                    </div>
+                    <div id="content-tendencias">
+                        <div class="no-data">
+                            Selecciona los filtros y genera el reporte para ver los resultados
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/reports.js"></script>
+</body>
+</html>

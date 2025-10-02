@@ -80,11 +80,33 @@
                 </div>
             </div>
 
+            <div class="recent-activity">
+                <h3>Alertas Recientes</h3>
+                <div id="alertsList" class="activity-list">
+                    <p>Cargando alertas...</p>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="monitoring.html" class="card-link">Ver todas las alertas</a>
+                </div>
+            </div>
+
             <div class="quick-actions">
                 <h3>Acciones Rápidas</h3>
                 <div class="actions-grid">
                     <button class="action-btn" onclick="window.location.href='nuevo-proyecto.html'">
                         Nuevo Proyecto
+                    </button>
+                    <button class="action-btn" onclick="showProjectPhasesModal()">
+                        Gestión de Fases
+                    </button>
+                    <button class="action-btn" onclick="showProjectBudgetModal()">
+                        Gestión de Presupuestos
+                    </button>
+                    <button class="action-btn" onclick="window.location.href='monitoring.html'">
+                        Seguimiento de Recursos
+                    </button>
+                    <button class="action-btn" onclick="window.location.href='reports.html'">
+                        📊 Reportes de Recursos
                     </button>
                     <button class="action-btn" onclick="window.location.href='solicitar-asesoria.html'">
                         Solicitar Asesoría
@@ -94,6 +116,32 @@
                     </button>
                     <button class="action-btn" onclick="window.location.href='perfil.html'">
                         Mi Perfil
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal para seleccionar proyecto para gestión de fases -->
+            <div id="projectPhasesModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h3>Seleccionar Proyecto para Gestión de Fases</h3>
+                    <div id="projectsList">
+                        <p>Cargando proyectos...</p>
+                    </div>
+                    <button onclick="closeProjectPhasesModal()" class="action-btn" style="background: #6c757d; margin-top: 20px;">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal para seleccionar proyecto para gestión de presupuestos -->
+            <div id="projectBudgetModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h3>Seleccionar Proyecto para Gestión de Presupuestos</h3>
+                    <div id="projectsBudgetList">
+                        <p>Cargando proyectos...</p>
+                    </div>
+                    <button onclick="closeProjectBudgetModal()" class="action-btn" style="background: #6c757d; margin-top: 20px;">
+                        Cancelar
                     </button>
                 </div>
             </div>

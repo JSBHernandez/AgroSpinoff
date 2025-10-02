@@ -35,12 +35,24 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const projectRoutes = require('./routes/projects');
 const reportRoutes = require('./routes/reports');
+const reportsRF05Routes = require('./routes/reports-rf05');
+const phaseRoutes = require('./routes/phases');
+const resourceRoutes = require('./routes/resources');
+const budgetRoutes = require('./routes/budgets');
+const taskRoutes = require('./routes/tasks');
+const monitoringRoutes = require('./routes/monitoring');
 
 // Usar rutas de API
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/reports-rf05', reportsRF05Routes);
+app.use('/api/phases', phaseRoutes);
+app.use('/api/resources', resourceRoutes);
+app.use('/api/budgets', budgetRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use('/api/monitoring', monitoringRoutes);
 
 // Ruta principal - servir frontend
 app.get('/', (req, res) => {
