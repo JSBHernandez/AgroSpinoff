@@ -19,7 +19,7 @@
                     <li><a href="proyectos.html">Proyectos</a></li>
                     <li><a href="reportes.html">Reportes</a></li>
                     <li><a href="invoices-rf07.html">Facturación</a></li>
-                    <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+                    <li><a href="login.html">Cerrar Sesión</a></li>
                 </ul>
             </nav>
             <div class="user-info">
@@ -40,51 +40,55 @@
                 <div class="dashboard-card">
                     <h3>Mis Proyectos</h3>
                     <div class="card-content">
-                        <div class="stat-number" id="totalProjects">0</div>
+                        <div class="stat-number">5</div>
                         <p>Proyectos activos</p>
-                        <a href="proyectos.html" class="card-link">Ver todos</a>
+                        <a href="phases.html" class="card-link">Ver todos</a>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3>Asesorías Pendientes</h3>
                     <div class="card-content">
-                        <div class="stat-number" id="pendingAdvice">0</div>
+                        <div class="stat-number">3</div>
                         <p>Solicitudes pendientes</p>
-                        <a href="asesorias.html" class="card-link">Gestionar</a>
+                        <a href="tasks.html" class="card-link">Gestionar</a>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3>Presupuesto Total</h3>
                     <div class="card-content">
-                        <div class="stat-number" id="totalBudget">$0</div>
+                        <div class="stat-number">$25,000,000</div>
                         <p>En proyectos activos</p>
-                        <a href="reportes.html" class="card-link">Ver reportes</a>
+                        <a href="reports.html" class="card-link">Ver reportes</a>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3>Usuarios Activos</h3>
                     <div class="card-content">
-                        <div class="stat-number" id="activeUsers">0</div>
+                        <div class="stat-number">12</div>
                         <p>En el sistema</p>
-                        <a href="usuarios.html" class="card-link">Administrar</a>
+                        <a href="budgets.html" class="card-link">Administrar</a>
                     </div>
                 </div>
             </div>
 
             <div class="recent-activity">
                 <h3>Actividad Reciente</h3>
-                <div id="activityList" class="activity-list">
-                    <p>Cargando actividad reciente...</p>
+                <div class="activity-list">
+                    <p>• Nuevo proyecto "Cultivo de Aguacate Hass" creado</p>
+                    <p>• Presupuesto actualizado para "Invernadero Tomate"</p>
+                    <p>• Reporte mensual generado exitosamente</p>
                 </div>
             </div>
 
             <div class="recent-activity">
                 <h3>Alertas Recientes</h3>
-                <div id="alertsList" class="activity-list">
-                    <p>Cargando alertas...</p>
+                <div class="activity-list">
+                    <p>• Sistema operando normalmente</p>
+                    <p>• Todas las funcionalidades activas</p>
+                    <p>• Sin alertas críticas pendientes</p>
                 </div>
                 <div style="text-align: center; margin-top: 15px;">
                     <a href="monitoring.html" class="card-link">Ver todas las alertas</a>
@@ -94,36 +98,36 @@
             <div class="quick-actions">
                 <h3>Acciones Rápidas</h3>
                 <div class="actions-grid">
-                    <button class="action-btn" onclick="window.location.href='nuevo-proyecto.html'">
-                        Nuevo Proyecto
-                    </button>
-                    <button class="action-btn" onclick="showProjectPhasesModal()">
-                        Gestión de Fases
-                    </button>
-                    <button class="action-btn" onclick="showProjectBudgetModal()">
-                        Gestión de Presupuestos
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='monitoring.html'">
-                        Seguimiento de Recursos
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='reports.html'">
+                    <a href="phases.html" class="action-btn">
+                        🆕 Nuevo Proyecto
+                    </a>
+                    <a href="phases.html" class="action-btn">
+                        ⚙️ Gestión de Fases
+                    </a>
+                    <a href="budgets.html" class="action-btn">
+                        💰 Gestión de Presupuestos
+                    </a>
+                    <a href="monitoring.html" class="action-btn">
+                        🔍 Seguimiento de Recursos
+                    </a>
+                    <a href="reports.html" class="action-btn">
                         📊 Reportes de Recursos
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='products.html'">
+                    </a>
+                    <a href="products.html" class="action-btn">
                         📦 Catálogo de Productos
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='invoices-rf07.html'">
+                    </a>
+                    <a href="invoices-rf07.html" class="action-btn">
                         🧾 Sistema de Facturación
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='solicitar-asesoria.html'">
-                        Solicitar Asesoría
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='generar-reporte.html'">
-                        Generar Reporte
-                    </button>
-                    <button class="action-btn" onclick="window.location.href='perfil.html'">
-                        Mi Perfil
-                    </button>
+                    </a>
+                    <a href="tasks.html" class="action-btn">
+                        📞 Solicitar Asesoría
+                    </a>
+                    <a href="reports.html" class="action-btn">
+                        📄 Generar Reporte
+                    </a>
+                    <a href="budgets.html" class="action-btn">
+                        👤 Mi Perfil
+                    </a>
                 </div>
             </div>
 
@@ -134,7 +138,7 @@
                     <div id="projectsList">
                         <p>Cargando proyectos...</p>
                     </div>
-                    <button onclick="closeProjectPhasesModal()" class="action-btn" style="background: #6c757d; margin-top: 20px;">
+                    <button id="btnCancelarModalFases" class="action-btn" style="background: #6c757d; margin-top: 20px;">
                         Cancelar
                     </button>
                 </div>
@@ -147,7 +151,7 @@
                     <div id="projectsBudgetList">
                         <p>Cargando proyectos...</p>
                     </div>
-                    <button onclick="closeProjectBudgetModal()" class="action-btn" style="background: #6c757d; margin-top: 20px;">
+                    <button id="btnCancelarModal" class="action-btn" style="background: #6c757d; margin-top: 20px;">
                         Cancelar
                     </button>
                 </div>
@@ -161,7 +165,6 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/dashboard.js"></script>
+    <!-- Sin scripts - Navegación HTML pura -->
 </body>
 </html>
